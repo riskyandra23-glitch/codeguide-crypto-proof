@@ -2,6 +2,7 @@ import type { Metadata } from 'next'
 import localFont from 'next/font/local'
 import './globals.css'
 import TanstackClientProvider from '@/components/providers/tanstack-client-provider'
+import WagmiProvider from '@/components/providers/wagmi-provider'
 
 const geistSans = localFont({
   src: './fonts/GeistVF.woff',
@@ -15,8 +16,8 @@ const geistMono = localFont({
 })
 
 export const metadata: Metadata = {
-  title: 'CodeGuide Starter Pro',
-  description: 'Starter kit from codeguide.dev',
+  title: 'Crypto Proof of Funds',
+  description: 'Aggregate crypto wallet balances and generate proof documents',
 }
 
 export default function RootLayout({
@@ -27,7 +28,9 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
-        <TanstackClientProvider>{children}</TanstackClientProvider>
+        <WagmiProvider>
+          <TanstackClientProvider>{children}</TanstackClientProvider>
+        </WagmiProvider>
       </body>
     </html>
   )
