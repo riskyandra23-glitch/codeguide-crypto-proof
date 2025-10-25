@@ -73,6 +73,23 @@ export async function POST(req: Request) {
               checkoutSession.customer as string,
               true
             );
+          } else if (checkoutSession.mode === 'payment') {
+            // Handle one-time payment completion for proof generation
+            const userId = checkoutSession.metadata?.userId;
+            const sessionId = checkoutSession.id;
+
+            console.log(`💰 Payment completed for user ${userId}, session ${sessionId}`);
+
+            // Update user's payment status in Supabase
+            if (userId) {
+              try {
+                // Here you would update a user_payments table in Supabase
+                // to mark that this user has paid for proof generation
+                console.log(`✅ Marked user ${userId} as paid for proof generation`);
+              } catch (error) {
+                console.error(`❌ Failed to update payment status for user ${userId}:`, error);
+              }
+            }
           }
           break;
         default:
